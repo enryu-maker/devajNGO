@@ -13,11 +13,9 @@ export default function AddStudents({
 }) {
     const [date, setDate] = useState(new Date())
     const [open, setOpen] = useState(false)
-    const [view, setView] = useState(false)
 
     const [image, setImage] = React.useState(null);
     const [loading, setLoading] = useState(false);
-    const [selected, setSelected] = React.useState("");
 
     const district = [
         { key: 1, value: "Ahmednagar" },
