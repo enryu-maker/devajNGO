@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TouchableOpacity, Image, TextInput } from 'react-native'
+import { View, Text, SafeAreaView, TouchableOpacity, Image, TextInput, Platform } from 'react-native'
 import React, { useState } from 'react'
 import Header from '../../Components/Header'
 import { Images } from '../../Assets/Image'
@@ -113,6 +113,8 @@ export default function AddStudents({
     ]
     return (
         <View className='flex-1  items-center h-full bg-white'>
+            <SafeAreaView>
+
             <Header
                 rightComponent={<View className='w-[20px]' />}
                 title={"Add Student"}
@@ -124,9 +126,11 @@ export default function AddStudents({
                     </TouchableOpacity>
                 }
             />
+            </SafeAreaView>
+
             <KeyboardAwareScrollView className='w-[100%] self-center space-y-2'>
                 <TouchableOpacity
-                    className=' w-[150px] justify-center self-center items-center'
+                    className=' w-[175px] justify-center self-center items-center'
                     onPress={pickImage}>
                     <View
                         className='border-[1px] h-[120px] w-[120px] justify-center items-center border-gray-400 rounded-full '
@@ -143,7 +147,7 @@ export default function AddStudents({
                             <View>
                                 <Image
                                     source={Images.user}
-                                    className='h-[80px] w-[80px] self-center '
+                                    className='h-[50px] w-[50px] self-center '
                                     tintColor={"#9ca3af"}
                                     resizeMode='contain'
                                 />
@@ -156,7 +160,7 @@ export default function AddStudents({
                         <Text
                             className='w-full text-center font-poppins text-[14px] pb-2 text-gray-500'
                         >
-                            Upload your Student Photo <Text className=' text-red-600'>*</Text>
+                            Upload Student's Photo <Text className=' text-red-600'>*</Text>
                         </Text>
                     </View>
                 </TouchableOpacity>
@@ -236,6 +240,7 @@ export default function AddStudents({
                         setSelected={(val) => setData({ ...data, district: val })}
                         data={district}
                         save="value"
+                        placeholder='Select  District'
                     />
 
                 </View>
@@ -310,15 +315,15 @@ export default function AddStudents({
                         Date of Birth of Student<Text className=' text-red-600'>*</Text>
                     </Text>
                     <TouchableOpacity
-                        className='border-[1px] tracking-widest h-[50px] font-poppins rounded-[8px]  border-gray-400 w-full px-6 focus:border-primary'
+                        className='border-[1px] justify-center tracking-widest h-[50px] font-poppins rounded-[8px]  border-gray-400 w-full px-6 focus:border-primary'
                         onPress={() => {
                             setOpen(!open)
                         }}
                     >
                         <Text
-                            className='self-start w-full font-poppins text-[14px] pb-2 text-gray-500'
+                            className='self-start w-full font-poppins text-[14px] text-gray-500'
                         >
-                            {date.getDate}
+                            {data?.date_of_birth || 'Select date'}
                         </Text>
                     </TouchableOpacity>
                     <DatePicker
@@ -425,14 +430,14 @@ export default function AddStudents({
                 onPress={(e) => {
                     // setLoading(true)
                 }}
-                className='w-full h-[70px] justify-center items-center bg-primary'>
+                className={`w-full ${Platform.OS=="ios"?"h-[90px]":"h-[70px]"} justify-center items-center bg-primary`}>
                 {
                     loading ? (
                         <ActivityIndicator size="small" color="#fff" />
                     ) :
                         <Text
-                            className=' w-[100%] tracking-wider text-center text-white text-xl'
-                        >ADD STUDENTS</Text>
+                            className=' w-[100%] uppercase font-poppins font-bold  tracking-wider text-center text-white text-xl'
+                        >Save STUDENT</Text>
                 }
             </TouchableOpacity>
         </View>

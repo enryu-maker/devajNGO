@@ -17,7 +17,7 @@ export default function Home() {
             <View
                 className='flex-row justify-between w-full px-3 py-5'>
                 <Text
-                    className='w-[50%] py-1 text-center font-semibold text-sm font-poppins text-white bg-primary'
+                    className='w-[50%] rounded-[8px] py-1 text-center font-semibold text-sm font-poppins text-white bg-primary'
                 >
                     Verified By GOV. of INDIA
                 </Text>

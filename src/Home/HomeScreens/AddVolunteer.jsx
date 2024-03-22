@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TouchableOpacity, Image, TextInput } from 'react-native'
+import { View, Text, SafeAreaView, TouchableOpacity, Image, TextInput, Platform } from 'react-native'
 import React from 'react'
 import Header from '../../Components/Header'
 import { Images } from '../../Assets/Image'
@@ -8,14 +8,15 @@ import { ActivityIndicator } from 'react-native-paper'
 export default function AddVolunteers({
     navigation
 }) {
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = React.useState(false);
     const [data, setData] = React.useState({
         "first_name": "",
         "last_name": "",
         "mobile_number": ""
     })
     return (
-        <SafeAreaView className=' justify-start items-center h-full bg-white'>
+        <View className='flex-1  items-center h-full bg-white'>
+            <SafeAreaView>
             <Header
                 rightComponent={<View className='w-[20px]' />}
                 title={"Add Volunteers"}
@@ -27,6 +28,7 @@ export default function AddVolunteers({
                     </TouchableOpacity>
                 }
             />
+            </SafeAreaView>
             <KeyboardAwareScrollView className='w-[100%] self-center space-y-2'>
                 <View className='w-[88%] self-center'>
                     <Text
@@ -69,7 +71,7 @@ export default function AddVolunteers({
                         onChangeText={(text) => {
                             setData({ ...data, mobile_number: text })
                         }}
-                        keyboardType="tel"
+                        keyboardType="number-pad"
                         maxLength={10}
                         className='border-[1px] h-[50px] font-poppins rounded-[8px] border-gray-400 w-full px-6 focus:border-primary'
                     />
@@ -79,16 +81,16 @@ export default function AddVolunteers({
                 onPress={(e) => {
                     // setLoading(true)
                 }}
-                className='w-full h-[70px] justify-center items-center bg-primary'>
+                className={`w-full ${Platform.OS=="ios"?"h-[90px]":"h-[70px]"} justify-center items-center bg-primary`}>
                 {
                     loading ? (
                         <ActivityIndicator size="small" color="#fff" />
                     ) :
                         <Text
-                            className=' w-[100%] uppercase tracking-wider text-center text-white text-xl'
-                        >ADD Volunteer</Text>
+                            className=' w-[100%] uppercase tracking-wider font-poppins text-center text-white text-xl'
+                        >Save Volunteer</Text>
                 }
             </TouchableOpacity>
-        </SafeAreaView>
+        </View>
     )
 }
