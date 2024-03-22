@@ -4,7 +4,7 @@ import Header from '../../Components/Header'
 import { Images } from '../../Assets/Image'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import RadioForm from 'react-native-simple-radio-button';
-import DropDownPicker from 'react-native-dropdown-picker'
+import RNPickerSelect from 'react-native-picker-select';
 export default function AddStudents({
     navigation
 }) {
@@ -31,12 +31,15 @@ export default function AddStudents({
         gender: "",
         is_disable: "",
         disability_percentage: ""
-
     })
 
     const disableItems = [
         { label: `Yes`, value: true },
         { label: 'No', value: false }
+    ]
+    const paymentItems = [
+        { label: `CASH`, value: "CASH" },
+        { label: 'ONLINE/UPI', value: "ONLINE" }
     ]
     return (
         <SafeAreaView className=' justify-start items-center h-full bg-white'>
@@ -139,14 +142,14 @@ export default function AddStudents({
                     >
                         District <Text className=' text-red-600'>*</Text>
                     </Text>
-                    {/* <DropDownPicker
-                        open={open}
-                        value={value}
-                        items={items}
-                        setOpen={setOpen}
-                        setValue={setValue}
-                        setItems={setItems}
-                    /> */}
+                    <RNPickerSelect
+                        onValueChange={(value) => console.log(value)}
+                        items={[
+                            { label: 'Football', value: 'football' },
+                            { label: 'Baseball', value: 'baseball' },
+                            { label: 'Hockey', value: 'hockey' },
+                        ]}
+                    />
                 </View>
                 <View className='w-[88%] self-center'>
                     <Text
@@ -242,11 +245,32 @@ export default function AddStudents({
                             fontFamily: 'Poppins',
                         }}
                         radio_props={disableItems}
-                        initial={0}
+                        initial={1}
                         buttonColor={"#FF385C"}
                         selectedButtonColor={"#FF385C"}
                         onPress={(value) => { setData({ ...data, is_disable: value }) }}
                     />
+                    {
+                        data?.is_disable ?
+                            <>
+                                <Text
+                                    className='self-start w-full font-poppins text-[14px] pb-2 text-gray-500'
+                                >
+                                    If Yes?<Text className=' text-red-600'>*</Text>
+                                </Text>
+                                <TextInput
+                                    // value={data.usename}
+                                    onChangeText={(text) => {
+                                        // setData({ ...data, usename: text })
+                                    }}
+                                    keyboardType="email-address"
+                                    className='border-[1px] h-[50px] font-poppins rounded-[8px]  border-gray-400 w-full px-6 focus:border-primary'
+                                    placeholder='How much in %'
+                                />
+                            </>
+                            :
+                            null
+                    }
                 </View>
                 <View className='w-[88%] self-center'>
                     <Text
@@ -262,6 +286,26 @@ export default function AddStudents({
                             fontFamily: 'Poppins',
                         }}
                         radio_props={items}
+                        initial={0}
+                        buttonColor={"#FF385C"}
+                        selectedButtonColor={"#FF385C"}
+                        onPress={(value) => { setData({ ...data, gender: value }) }}
+                    />
+                </View>
+                <View className='w-[88%] self-center'>
+                    <Text
+                        className='self-start w-full font-poppins text-[14px] pb-2 text-gray-500'
+                    >
+                        Payement Mode<Text className=' text-red-600'>*</Text>
+                    </Text>
+                    <RadioForm
+                        style={{
+                            marginVertical: 10
+                        }}
+                        labelStyle={{
+                            fontFamily: 'Poppins',
+                        }}
+                        radio_props={paymentItems}
                         initial={0}
                         buttonColor={"#FF385C"}
                         selectedButtonColor={"#FF385C"}
