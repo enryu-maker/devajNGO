@@ -356,8 +356,8 @@ export default function AddStudents({
                         }}
                         radio_props={disableItems}
                         initial={1}
-                        buttonColor={"#FF385C"}
-                        selectedButtonColor={"#FF385C"}
+                        buttonColor={"#2976c3"}
+                        selectedButtonColor={"#2976c3"}
                         onPress={(value) => { setData({ ...data, is_disable: value }) }}
                     />
                     {
@@ -397,8 +397,8 @@ export default function AddStudents({
                         }}
                         radio_props={items}
                         initial={0}
-                        buttonColor={"#FF385C"}
-                        selectedButtonColor={"#FF385C"}
+                        buttonColor={"#2976c3"}
+                        selectedButtonColor={"#2976c3"}
                         onPress={(value) => { setData({ ...data, gender: value }) }}
                     />
                 </View>
@@ -417,8 +417,8 @@ export default function AddStudents({
                         }}
                         radio_props={paymentItems}
                         initial={0}
-                        buttonColor={"#FF385C"}
-                        selectedButtonColor={"#FF385C"}
+                        buttonColor={"#2976c3"}
+                        selectedButtonColor={"#2976c3"}
                         onPress={(value) => { setData({ ...data, payement_mode: value }) }}
                     />
                 </View>

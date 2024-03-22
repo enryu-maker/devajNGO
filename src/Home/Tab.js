@@ -44,13 +44,13 @@ export default function Tab() {
                   alignItems: "center",
                   height: 30,
                   width: 30,
-                  tintColor: focused ? "#FF385C" : "#5c5c5c"
+                  tintColor: focused ? "#2976c3" : "#5c5c5c"
                 }}
               />
               <Text
                 className=' font-poppins text-xs mt-1 tracking-widest'
                 style={{
-                  color: focused ? "#FF385C" : "#8C8C8C",
+                  color: focused ? "#2976c3" : "#8C8C8C",
                 }}
               >
                 {route.name}
@@ -75,7 +75,7 @@ export default function Tab() {
           bottom: 20,
           elevation: 0
         },
-        tabBarActiveTintColor: "#FF385C",
+        tabBarActiveTintColor: "#2976c3",
         tabBarInactiveTintColor: "#000000",
 
       })}>
