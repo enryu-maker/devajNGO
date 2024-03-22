@@ -14,7 +14,7 @@ export default function Volunteers({
                     <TouchableOpacity
                     onPress={() => navigation.navigate('AddVolunteers')}
                     >
-                        <Text className='text-primary text-base font-bold'>Add + </Text>
+                        <Text className='text-primary text-base font-bold w-[50px]'>Add + </Text>
                     </TouchableOpacity>
                 }
             />

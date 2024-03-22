@@ -7,9 +7,7 @@ import Index from './src/Screen/Index'
 export default function App() {
   return (
     <Provider store={store}>
-      <SafeAreaProvider>
         <Index />
-      </SafeAreaProvider>
     </Provider>
   )
 }

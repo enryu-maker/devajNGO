@@ -14,14 +14,15 @@ export default function Login() {
             <KeyboardAwareScrollView
                 className='w-full flex space-y-6 '
             >
-                <Text
-                    className='text-2xl text-black font-poppins self-center  w-[88%] tracking-wider font-black' >
-                    Devaj NGO
-                </Text>
+                
                 <Image
                     source={Images?.login}
-                    className='h-[280px] w-[88%] rounded-[8px] self-center'
+                    className='h-[280px] w-[95%] mt-4 rounded-[8px] self-center'
                 />
+                <Text
+                    className='text-2xl text-black font-poppins text-center self-center  w-[88%] tracking-wider font-black' >
+                    Devaj NGO
+                </Text>
                 <Text
                     className='text-lg text-gray-600 self-center font-poppins '
                 >
