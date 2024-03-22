@@ -22,6 +22,14 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Volunteer and Coordinator  can add there profile pic </string>
+	<key>NSCameraUsageDescription</key>
+	<string>Volunteer and Coordinator  can add there profile pic</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Volunteer and Coordinator  can add there profile pic </string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Volunteer and Coordinator  can add there profile pic </string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
