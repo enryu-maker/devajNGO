@@ -2,6 +2,8 @@ import { View, Text, Platform } from 'react-native'
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './Login';
+import Type from './Type';
+import Register from './Register';
 const Stack = createNativeStackNavigator()
 export default function Auth() {
     return (
@@ -13,8 +15,10 @@ export default function Auth() {
                 onTransitionStart: () => Keyboard.dismiss(),
             }
         }}
-            initialRouteName={'Login'}>
+            initialRouteName={'Type'}>
             <Stack.Screen name='Login' component={Login} />
+            <Stack.Screen name='Type' component={Type} />
+            <Stack.Screen name='Register' component={Register} />
         </Stack.Navigator>
     )
 }

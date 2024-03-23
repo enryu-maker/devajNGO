@@ -3,25 +3,37 @@ import React from 'react'
 import { Images } from '../Assets/Image'
 import { ActivityIndicator } from 'react-native-paper'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-export default function Login() {
+import Toast from 'react-native-toast-message'
+import { toastConfig } from '../Components/ToastConfig'
+import { useDispatch } from 'react-redux'
+import { LoginAction } from '../../Store/actions'
+export default function Login({
+    navigation,
+    route
+}) {
+    console.log(route?.params?.session)
     const [loading, setLoading] = React.useState(false)
     const [data, setData] = React.useState({
-        usename: "",
+        username: "",
         password: "",
     })
+    const dispatch = useDispatch()
     return (
         <SafeAreaView className=' justify-evenly items-center h-full bg-white'>
             <KeyboardAwareScrollView
                 className='w-full flex space-y-6 '
             >
-                
                 <Image
-                    source={Images?.login}
-                    className='h-[280px] w-[95%] mt-4 rounded-[8px] self-center'
+                    source={Images?.logo}
+                    resizeMode="contain"
+                    className='h-[250px] w-[95%] mt-4 rounded-[8px] self-center'
                 />
                 <Text
-                    className='text-2xl text-black font-poppins text-center self-center  w-[88%] tracking-wider font-black' >
-                    Devaj NGO
+                    className='text-2xl text-black font-bold  self-center font-poppins '
+                >
+                    {
+                        route?.params?.session ? "Volunteer Login" : "Coordinator Login"
+                    }
                 </Text>
                 <Text
                     className='text-lg text-gray-600 self-center font-poppins '
@@ -36,9 +48,9 @@ export default function Login() {
                             Username
                         </Text>
                         <TextInput
-                            value={data.usename}
+                            value={data.username}
                             onChangeText={(text) => {
-                                setData({ ...data, usename: text })
+                                setData({ ...data, username: text })
                             }}
                             keyboardType="email-address"
                             className='border-[1px] h-[50px] font-poppins rounded-[8px] border-gray-400 w-full px-6 focus:border-primary'
@@ -64,6 +76,7 @@ export default function Login() {
                     <TouchableOpacity
                         disabled={loading}
                         onPress={() => {
+                            dispatch(LoginAction(setLoading, data, navigation))
                         }}
                         className='bg-primary w-[88%] h-[50px] rounded-full justify-center items-center'
                     >
@@ -74,14 +87,40 @@ export default function Login() {
                                 />
                                 :
                                 <Text
-                                    className='text-center text-lg self-center flex justify-center items-center  tracking-wider font-poppins text-white'
+                                    className='text-center text-lg font-bold  self-center flex justify-center items-center  tracking-wider font-poppins text-white'
                                 >
                                     Login
                                 </Text>
                         }
                     </TouchableOpacity>
+                    {
+                        route?.params?.session ?
+                            <TouchableOpacity
+                                disabled={loading}
+                                onPress={() => {
+                                    navigation.navigate("Register")
+                                }}
+                                className='w-[88%] h-[50px] rounded-full justify-center items-center'
+                            >
+                                {
+                                    loading ?
+                                        <ActivityIndicator
+                                            color='#fff'
+                                        />
+                                        :
+                                        <Text
+                                            className='text-center text-base self-center flex justify-center items-center  tracking-wider font-poppins text-black'
+                                        >
+                                            Create Volunteer Account?<Text className='text-primary font-bold '> Sign Up Here!</Text>
+                                        </Text>
+                                }
+                            </TouchableOpacity>
+                            :
+                            null
+                    }
                 </View>
             </KeyboardAwareScrollView>
+            <Toast ref={(ref) => { Toast.setRef(ref) }} config={toastConfig} />
         </SafeAreaView>
     )
 }

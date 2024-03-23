@@ -9,7 +9,7 @@ export default function Index() {
     return (
         <NavigationContainer>
             {
-                    access != null ? <Auth /> : <HomeNav />
+                    access == null ? <Auth /> : <HomeNav />
             }
         </NavigationContainer>
     )
