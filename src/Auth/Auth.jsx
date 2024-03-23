@@ -11,7 +11,7 @@ export default function Auth() {
             return {
                 detachPreviousScreen: !navigation.isFocused(),
                 headerShown: false,
-                animation: Platform.OS == "ios" ? "simple_push" : "simple_push",
+                animation: Platform.OS == "ios" ? "ios" : "ios",
                 onTransitionStart: () => Keyboard.dismiss(),
             }
         }}

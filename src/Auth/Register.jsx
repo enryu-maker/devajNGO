@@ -58,7 +58,7 @@ export default function AddVolunteers({
             <SafeAreaView>
                 <Header
                     rightComponent={<View className='w-[20px]' />}
-                    title={"Signup as Volunteers"}
+                    title={"Register as Volunteers"}
                     leftComponent={
                         <TouchableOpacity
                             onPress={() => navigation.goBack()}
@@ -199,10 +199,12 @@ export default function AddVolunteers({
                         Password <Text className=' text-red-600'>*</Text>
                     </Text>
                     <TextInput
-                        readOnly
-                        value={data.state}
+                        value={data.taluka}
+                        onChangeText={(text) => {
+                            setData({ ...data, taluka: text })
+                        }}
                         keyboardType="email-address"
-                        className='border-[1px] h-[50px] font-poppins rounded-[8px] bg-gray-100 border-gray-400 w-full px-6 focus:border-primary'
+                        className='border-[1px] h-[50px] font-poppins rounded-[8px] border-gray-400 w-full px-6 focus:border-primary'
                     // placeholder='@jhondoe'
                     />
                 </View>
