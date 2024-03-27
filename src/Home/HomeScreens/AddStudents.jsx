@@ -52,8 +52,6 @@ export default function AddStudents({
         }
     };
 
-   
-
     const disableItems = [
         { label: `Yes`, value: true },
         { label: 'No', value: false }
@@ -77,7 +75,7 @@ export default function AddStudents({
         adhar_number: "",
         date_of_birth: "",
         gender: items[0].value,
-        is_disable: disableItems[1].value,
+        is_disabled: disableItems[1].value,
         disability_percentage: "",
         payment_mode:paymentItems[0].value
     })
