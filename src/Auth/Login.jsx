@@ -45,7 +45,7 @@ export default function Login({
                         <Text
                             className='self-start w-full font-poppins text-[16px] pb-2font-poppins text-black'
                         >
-                            Username
+                          { route?.params?.session ?"Mobile Number" : "Username"}
                         </Text>
                         <TextInput
                             value={data.username}
@@ -54,7 +54,7 @@ export default function Login({
                             }}
                             keyboardType="email-address"
                             className='border-[1px] h-[50px] font-poppins rounded-[8px] border-gray-400 w-full px-6 focus:border-primary'
-                            placeholder='@jhondoe'
+                            placeholder={ route?.params?.session ?"1234567890" : "jhondoe"}
                         />
                     </View>
                     <View className='w-[88%]'>
@@ -76,6 +76,7 @@ export default function Login({
                     <TouchableOpacity
                         disabled={loading}
                         onPress={() => {
+                            console.log(data)
                             dispatch(LoginAction(setLoading, data, navigation))
                         }}
                         className='bg-primary w-[88%] h-[50px] rounded-full justify-center items-center'

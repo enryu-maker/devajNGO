@@ -5,54 +5,29 @@ import { ActivityIndicator } from 'react-native-paper'
 import { Images } from '../Assets/Image'
 import Header from '../Components/Header'
 import { SelectList } from 'react-native-dropdown-select-list'
-
+import { RegisterAction } from '../../Store/actions'
+import { useDispatch } from 'react-redux'
+import { district } from '../Components/Data'
 export default function AddVolunteers({
     navigation
 }) {
     const [loading, setLoading] = React.useState(false);
+    const [taluka,setTaluka] = React.useState([])
     const [data, setData] = React.useState({
-        "name": "",
-        "mobile_number": "",
-        "state":"Maharashtra"
+        "first_name": "",
+        "email": "",
+        "phone":"",
+        "role":"Volunteer",
+        "ifsc_code":"",
+        "bank_name":"",
+        "district":"",
+        "taluka":"",
+        "bank_account_number":"",
+        "state":"Maharashtra",
+        "password":""
     })
-    const district = [
-        { key: 1, value: "Ahmednagar" },
-        { key: 2, value: "Akola" },
-        { key: 3, value: "Amravati" },
-        { key: 4, value: "Aurangabad" },
-        { key: 5, value: "Beed" },
-        { key: 6, value: "Bhandara" },
-        { key: 7, value: "Buldhana" },
-        { key: 8, value: "Chandrapur" },
-        { key: 9, value: "Dhule" },
-        { key: 10, value: "Gadchiroli" },
-        { key: 11, value: "Gondia" },
-        { key: 12, value: "Hingoli" },
-        { key: 13, value: "Jalgaon" },
-        { key: 14, value: "Jalna" },
-        { key: 15, value: "Kolhapur" },
-        { key: 16, value: "Latur" },
-        { key: 17, value: "Mumbai City" },
-        { key: 18, value: "Mumbai Suburban" },
-        { key: 19, value: "Nagpur" },
-        { key: 20, value: "Nanded" },
-        { key: 21, value: "Nandurbar" },
-        { key: 22, value: "Nashik" },
-        { key: 23, value: "Osmanabad" },
-        { key: 24, value: "Palghar" },
-        { key: 25, value: "Parbhani" },
-        { key: 26, value: "Pune" },
-        { key: 27, value: "Raigad" },
-        { key: 28, value: "Ratnagiri" },
-        { key: 29, value: "Sangli" },
-        { key: 30, value: "Satara" },
-        { key: 31, value: "Sindhudurg" },
-        { key: 32, value: "Solapur" },
-        { key: 33, value: "Thane" },
-        { key: 34, value: "Wardha" },
-        { key: 35, value: "Washim" },
-        { key: 36, value: "Yavatmal" }
-    ]
+    
+    const dispatch = useDispatch()
     return (
         <View className='flex-1  items-center h-full bg-white'>
             <SafeAreaView>
@@ -88,12 +63,27 @@ export default function AddVolunteers({
                     <Text
                         className='self-start w-full font-poppins text-[14px] pb-2 text-gray-500'
                     >
+                        Email of Volunteer <Text className=' text-red-600'>*</Text>
+                    </Text>
+                    <TextInput
+                        value={data.email}
+                        onChangeText={(text) => {
+                            setData({ ...data, email: text })
+                        }}
+                        keyboardType="email-address"
+                        className='border-[1px] h-[50px] font-poppins rounded-[8px] border-gray-400 w-full px-6 focus:border-primary'
+                    />
+                </View>
+                <View className='w-[88%] self-center'>
+                    <Text
+                        className='self-start w-full font-poppins text-[14px] pb-2 text-gray-500'
+                    >
                         Mobile Number of Volunteer <Text className=' text-red-600'>*</Text>
                     </Text>
                     <TextInput
-                        value={data.mobile_number}
+                        value={data.phone}
                         onChangeText={(text) => {
-                            setData({ ...data, mobile_number: text })
+                            setData({ ...data, phone: text })
                         }}
                         keyboardType="number-pad"
                         maxLength={10}
@@ -107,12 +97,10 @@ export default function AddVolunteers({
                         Name of Bank <Text className=' text-red-600'>*</Text>
                     </Text>
                     <TextInput
-                        value={data.mobile_number}
+                        value={data.bank_name}
                         onChangeText={(text) => {
-                            setData({ ...data, mobile_number: text })
+                            setData({ ...data, bank_name: text })
                         }}
-                        keyboardType="number-pad"
-                        maxLength={10}
                         className='border-[1px] h-[50px] font-poppins rounded-[8px] border-gray-400 w-full px-6 focus:border-primary'
                     />
                 </View>
@@ -123,11 +111,10 @@ export default function AddVolunteers({
                         Account Number of Volunteer <Text className=' text-red-600'>*</Text>
                     </Text>
                     <TextInput
-                        value={data.first_name}
+                        value={data.bank_account_number}
                         onChangeText={(text) => {
-                            setData({ ...data, first_name: text })
+                            setData({ ...data, bank_account_number: text })
                         }}
-                        keyboardType="number-pad"
                         className='border-[1px] h-[50px] font-poppins rounded-[8px] border-gray-400 w-full px-6 focus:border-primary'
                     />
                 </View>
@@ -138,32 +125,15 @@ export default function AddVolunteers({
                         IFSC CODE of Volunteer <Text className=' text-red-600'>*</Text>
                     </Text>
                     <TextInput
-                        value={data.mobile_number}
+                        value={data.ifsc_code}
                         onChangeText={(text) => {
-                            setData({ ...data, mobile_number: text })
+                            setData({ ...data, ifsc_code: text })
                         }}
-                        keyboardType="number-pad"
-                        maxLength={10}
                         className='border-[1px] h-[50px] font-poppins rounded-[8px] border-gray-400 w-full px-6 focus:border-primary'
                     />
                 </View>
 
-                <View className='w-[88%] self-center'>
-                    <Text
-                        className='self-start w-full font-poppins text-[14px] pb-2 text-gray-500'
-                    >
-                        Taluka <Text className=' text-red-600'>*</Text>
-                    </Text>
-                    <TextInput
-                        value={data.taluka}
-                        onChangeText={(text) => {
-                            setData({ ...data, taluka: text })
-                        }}
-                        keyboardType="email-address"
-                        className='border-[1px] h-[50px] font-poppins rounded-[8px] border-gray-400 w-full px-6 focus:border-primary'
-                    // placeholder='@jhondoe'
-                    />
-                </View>
+                
                 <View className='w-[88%] self-center'>
                     <Text
                         className='self-start w-full font-poppins text-[14px] pb-2 text-gray-500'
@@ -172,10 +142,27 @@ export default function AddVolunteers({
                     </Text>
                     <SelectList
                         fontFamily='Poppins'
-                        setSelected={(val) => setData({ ...data, district: val })}
+                        setSelected={(val) =>{ 
+                            setData({ ...data, district: val })
+                            setTaluka(district[district.findIndex(({ value }) => value === val)].talukas)
+                        }}
                         data={district}
                         save="value"
                         placeholder='Select  District'
+                    />
+                </View>
+                <View className='w-[88%] self-center'>
+                    <Text
+                        className='self-start w-full font-poppins text-[14px] pb-2 text-gray-500'
+                    >
+                        Taluka <Text className=' text-red-600'>*</Text>
+                    </Text>
+                    <SelectList
+                        fontFamily='Poppins'
+                        setSelected={(val) => setData({ ...data, taluka: val })}
+                        data={taluka}
+                        save="value"
+                        placeholder='Select  Taluka'
                     />
                 </View>
                 <View className='w-[88%] self-center'>
@@ -199,11 +186,10 @@ export default function AddVolunteers({
                         Password <Text className=' text-red-600'>*</Text>
                     </Text>
                     <TextInput
-                        value={data.taluka}
+                        value={data.password}
                         onChangeText={(text) => {
-                            setData({ ...data, taluka: text })
+                            setData({ ...data, password: text })
                         }}
-                        keyboardType="email-address"
                         className='border-[1px] h-[50px] font-poppins rounded-[8px] border-gray-400 w-full px-6 focus:border-primary'
                     // placeholder='@jhondoe'
                     />
@@ -211,7 +197,7 @@ export default function AddVolunteers({
                 <TouchableOpacity
                         disabled={loading}
                         onPress={() => {
-                            dispatch(LoginAction(setLoading, data, navigation))
+                            dispatch(RegisterAction(setLoading, data, navigation))
                         }}
                         className='bg-primary w-[88%] self-center h-[50px] rounded-full justify-center items-center'
                     >
@@ -230,20 +216,6 @@ export default function AddVolunteers({
                     </TouchableOpacity>
 
             </KeyboardAwareScrollView>
-            {/* <TouchableOpacity
-                onPress={(e) => {
-                    // setLoading(true)
-                }}
-                className={`w-full ${Platform.OS == "ios" ? "h-[90px]" : "h-[70px]"} justify-center items-center bg-primary`}>
-                {
-                    loading ? (
-                        <ActivityIndicator size="small" color="#fff" />
-                    ) :
-                        <Text
-                            className=' w-[100%] font-bold  uppercase tracking-wider font-poppins text-center text-white text-xl'
-                        >SignUp</Text>
-                }
-            </TouchableOpacity> */}
         </View>
     )
 }

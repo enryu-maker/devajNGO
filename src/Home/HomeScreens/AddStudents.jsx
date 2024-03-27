@@ -8,59 +8,26 @@ import ImagePicker from 'react-native-image-crop-picker';
 import { ActivityIndicator } from 'react-native-paper'
 import DatePicker from 'react-native-date-picker'
 import { SelectList } from 'react-native-dropdown-select-list'
+import { district } from '../../Components/Data'
+import { useDispatch } from 'react-redux'
+import { AddStudentAction } from '../../../Store/actions'
 export default function AddStudents({
     navigation
 }) {
     const [date, setDate] = useState(new Date())
     const [open, setOpen] = useState(false)
-
+    const [taluka,setTaluka] = React.useState([])
     const [image, setImage] = React.useState(null);
     const [loading, setLoading] = useState(false);
-
-    const district = [
-        { key: 1, value: "Ahmednagar" },
-        { key: 2, value: "Akola" },
-        { key: 3, value: "Amravati" },
-        { key: 4, value: "Aurangabad" },
-        { key: 5, value: "Beed" },
-        { key: 6, value: "Bhandara" },
-        { key: 7, value: "Buldhana" },
-        { key: 8, value: "Chandrapur" },
-        { key: 9, value: "Dhule" },
-        { key: 10, value: "Gadchiroli" },
-        { key: 11, value: "Gondia" },
-        { key: 12, value: "Hingoli" },
-        { key: 13, value: "Jalgaon" },
-        { key: 14, value: "Jalna" },
-        { key: 15, value: "Kolhapur" },
-        { key: 16, value: "Latur" },
-        { key: 17, value: "Mumbai City" },
-        { key: 18, value: "Mumbai Suburban" },
-        { key: 19, value: "Nagpur" },
-        { key: 20, value: "Nanded" },
-        { key: 21, value: "Nandurbar" },
-        { key: 22, value: "Nashik" },
-        { key: 23, value: "Osmanabad" },
-        { key: 24, value: "Palghar" },
-        { key: 25, value: "Parbhani" },
-        { key: 26, value: "Pune" },
-        { key: 27, value: "Raigad" },
-        { key: 28, value: "Ratnagiri" },
-        { key: 29, value: "Sangli" },
-        { key: 30, value: "Satara" },
-        { key: 31, value: "Sindhudurg" },
-        { key: 32, value: "Solapur" },
-        { key: 33, value: "Thane" },
-        { key: 34, value: "Wardha" },
-        { key: 35, value: "Washim" },
-        { key: 36, value: "Yavatmal" }
-    ]
 
     const [items, setItems] = useState([
         { label: 'Male', value: 'Male' },
         { label: 'Female', value: 'Female' },
         { label: 'Other', value: 'Other' },
     ]);
+
+    const dispatch = useDispatch()
+
     const pickImage = async () => {
         let result = await ImagePicker.openPicker({
             width: 300,
@@ -85,8 +52,20 @@ export default function AddStudents({
         }
     };
 
+   
+
+    const disableItems = [
+        { label: `Yes`, value: true },
+        { label: 'No', value: false }
+    ]
+    const paymentItems = [
+        { label: `CASH`, value: "CASH" },
+        { label: 'ONLINE/UPI', value: "ONLINE" }
+    ]
+
     const [data, setData] = React.useState({
         full_name: "",
+        email: "",
         parent_name: "",
         photo: "",
         address: "",
@@ -97,20 +76,11 @@ export default function AddStudents({
         mobile_number: "",
         adhar_number: "",
         date_of_birth: "",
-        gender: "",
-        is_disable: "",
+        gender: items[0].value,
+        is_disable: disableItems[1].value,
         disability_percentage: "",
-        payement_mode:""
+        payment_mode:paymentItems[0].value
     })
-
-    const disableItems = [
-        { label: `Yes`, value: true },
-        { label: 'No', value: false }
-    ]
-    const paymentItems = [
-        { label: `CASH`, value: "CASH" },
-        { label: 'ONLINE/UPI', value: "ONLINE" }
-    ]
     return (
         <View className='flex-1  items-center h-full bg-white'>
             <SafeAreaView>
@@ -139,8 +109,8 @@ export default function AddStudents({
                             <View>
                                 <Image
                                     source={{ uri: image?.uri }}
-                                    className='h-full w-full rounded-full justify-center items-center'
-                                    resizeMode='cover'
+                                    className='h-[100px] w-[100px] self-center rounded-full overflow-hidden '
+                                    resizeMode='contain'
                                 />
                             </View>
                         ) : (
@@ -184,6 +154,22 @@ export default function AddStudents({
                     <Text
                         className='self-start w-full font-poppins text-[14px] pb-2 text-gray-500'
                     >
+                        Email of Student <Text className=' text-red-600'>*</Text>
+                    </Text>
+                    <TextInput
+                        value={data.email}
+                        onChangeText={(text) => {
+                            setData({ ...data, email: text })
+                        }}
+                        keyboardType="email-address"
+                        className='border-[1px] h-[50px] font-poppins rounded-[8px] border-gray-400 w-full px-6 focus:border-primary'
+                    // placeholder='@jhondoe'
+                    />
+                </View>
+                <View className='w-[88%] self-center'>
+                    <Text
+                        className='self-start w-full font-poppins text-[14px] pb-2 text-gray-500'
+                    >
                         Full Name of Student's Mother or Father <Text className=' text-red-600'>*</Text>
                     </Text>
                     <TextInput
@@ -217,32 +203,32 @@ export default function AddStudents({
                     <Text
                         className='self-start w-full font-poppins text-[14px] pb-2 text-gray-500'
                     >
-                        Taluka <Text className=' text-red-600'>*</Text>
+                        District <Text className=' text-red-600'>*</Text>
                     </Text>
-                    <TextInput
-                        value={data.taluka}
-                        onChangeText={(text) => {
-                            setData({ ...data, taluka: text })
+                    <SelectList
+                        fontFamily='Poppins'
+                        setSelected={(val) =>{ 
+                            setData({ ...data, district: val })
+                            setTaluka(district[district.findIndex(({ value }) => value === val)].talukas)
                         }}
-                        keyboardType="email-address"
-                        className='border-[1px] h-[50px] font-poppins rounded-[8px] border-gray-400 w-full px-6 focus:border-primary'
-                    // placeholder='@jhondoe'
+                        data={district}
+                        save="value"
+                        placeholder='Select  District'
                     />
                 </View>
                 <View className='w-[88%] self-center'>
                     <Text
                         className='self-start w-full font-poppins text-[14px] pb-2 text-gray-500'
                     >
-                        District <Text className=' text-red-600'>*</Text>
+                        Taluka <Text className=' text-red-600'>*</Text>
                     </Text>
                     <SelectList
                         fontFamily='Poppins'
-                        setSelected={(val) => setData({ ...data, district: val })}
-                        data={district}
+                        setSelected={(val) => setData({ ...data, taluka: val })}
+                        data={taluka}
                         save="value"
-                        placeholder='Select  District'
+                        placeholder='Select  Taluka'
                     />
-
                 </View>
                 <View className='w-[88%] self-center'>
                     <Text
@@ -359,8 +345,8 @@ export default function AddStudents({
                         }}
                         radio_props={disableItems}
                         initial={1}
-                        buttonColor={"#2976c3"}
-                        selectedButtonColor={"#2976c3"}
+                        buttonColor={"#f49d32"}
+                        selectedButtonColor={"#f49d32"}
                         onPress={(value) => { setData({ ...data, is_disable: value }) }}
                     />
                     {
@@ -400,8 +386,8 @@ export default function AddStudents({
                         }}
                         radio_props={items}
                         initial={0}
-                        buttonColor={"#2976c3"}
-                        selectedButtonColor={"#2976c3"}
+                        buttonColor={"#f49d32"}
+                        selectedButtonColor={"#f49d32"}
                         onPress={(value) => { setData({ ...data, gender: value }) }}
                     />
                 </View>
@@ -420,14 +406,17 @@ export default function AddStudents({
                         }}
                         radio_props={paymentItems}
                         initial={0}
-                        buttonColor={"#2976c3"}
-                        selectedButtonColor={"#2976c3"}
-                        onPress={(value) => { setData({ ...data, payement_mode: value }) }}
+                        buttonColor={"#f49d32"}
+                        selectedButtonColor={"#f49d32"}
+                        onPress={(value) => { setData({ ...data, payment_mode: value }) }}
                     />
                 </View>
             </KeyboardAwareScrollView>
             <TouchableOpacity
                 onPress={(e) => {
+                    data["photo"] = image
+                    console.log(data)
+                    dispatch(AddStudentAction(setLoading,data,navigation))
                     // setLoading(true)
                 }}
                 className={`w-full ${Platform.OS=="ios"?"h-[90px]":"h-[70px]"} justify-center items-center bg-primary`}>

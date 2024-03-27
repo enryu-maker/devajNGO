@@ -5,5 +5,5 @@ export const Images  = {
     user : require('./Images/user.png'),
     back : require('./Images/back.png'),
     graduation : require('./Images/graduation.png'),
-
+    settings : require('./Images/settings.png'),
 }

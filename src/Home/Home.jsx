@@ -10,6 +10,7 @@ export default function Home() {
                 leftComponent={<View className='w-[55px]' />}
                 rightComponent={<View className='w-[55px]' />}
                 title={"Home"} />
+                
             <Image
                 source={Images?.login}
                 className='h-[280px] w-[95%] rounded-[8px] self-center'

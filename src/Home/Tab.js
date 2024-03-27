@@ -5,8 +5,11 @@ import Home from './Home';
 import { Images } from '../Assets/Image';
 import Students from './Students';
 import Volunteers from './Volunteers';
+import Settings from './Settings';
+import { useSelector } from 'react-redux';
 const BottomTab = createBottomTabNavigator();
 export default function Tab() {
+  const role = useSelector(state => state.Reducers.role)
   return (
     <BottomTab.Navigator
       screenOptions={({ route }) => ({
@@ -24,9 +27,9 @@ export default function Tab() {
           else if (route.name === 'Volunteers') {
             iconName = focused ? Images?.user : Images?.user;
           }
-          // else if (route.name === 'Add') {
-          //   iconName = focused ? Images?.use : Images?.use;
-          // }
+          else if (route.name === 'Settings') {
+            iconName = focused ? Images?.settings : Images?.settings;
+          }
           return (
             <View
               style={{
@@ -44,13 +47,13 @@ export default function Tab() {
                   alignItems: "center",
                   height: 30,
                   width: 30,
-                  tintColor: focused ? "#2976c3" : "#5c5c5c"
+                  tintColor: focused ? "#f49d32" : "#5c5c5c"
                 }}
               />
               <Text
                 className=' font-poppins text-xs mt-1 tracking-widest'
                 style={{
-                  color: focused ? "#2976c3" : "#8C8C8C",
+                  color: focused ? "#f49d32" : "#8C8C8C",
                 }}
               >
                 {route.name}
@@ -80,8 +83,13 @@ export default function Tab() {
 
       })}>
       <BottomTab.Screen name="Home" component={Home} />
-      <BottomTab.Screen name="Volunteers" component={Volunteers} />
+      {
+        role === "Volunteer"?null:
+        <BottomTab.Screen name="Volunteers" component={Volunteers} />
+      }
       <BottomTab.Screen name="Students" component={Students} />
+      <BottomTab.Screen name="Settings" component={Settings} />
+
       {/* <BottomTab.Screen name="User" component={Progress} /> */}
     </BottomTab.Navigator>
   )

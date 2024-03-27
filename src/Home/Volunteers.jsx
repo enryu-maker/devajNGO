@@ -11,11 +11,12 @@ export default function Volunteers({
                 leftComponent={<View className='w-[55px]'/>}
                 title={"Volunteers"}
                 rightComponent={
-                    <TouchableOpacity
-                    onPress={() => navigation.navigate('AddVolunteers')}
-                    >
-                        <Text className='text-primary text-base font-bold w-[50px]'>Add + </Text>
-                    </TouchableOpacity>
+                    <View className='w-[55px]'/>
+                    // <TouchableOpacity
+                    // onPress={() => navigation.navigate('AddVolunteers')}
+                    // >
+                    //     <Text className='text-primary text-base font-bold w-[50px]'>Add + </Text>
+                    // </TouchableOpacity>
                 }
             />
         </SafeAreaView>
