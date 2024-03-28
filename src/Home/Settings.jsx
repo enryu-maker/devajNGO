@@ -11,15 +11,27 @@ export default function Settings() {
                 leftComponent={<View className='w-[55px]' />}
                 rightComponent={<View className='w-[55px]' />}
                 title={"Settings"} />
-            <TouchableOpacity
-                onPress={() => {
-                    dispatch({
-                        type: "LOGOUT"
-                    })
-                }}
-            >
-                <Text>Settings</Text>
-            </TouchableOpacity>
+            <View className='w-[88%] space-y-3'>
+                <TouchableOpacity
+                    onPress={() => {
+                        // dispatch({
+                        //     type: "LOGOUT"
+                        // })
+                    }}
+                >
+                    <Text className=' text-xl font-poppins font-bold tracking-widest'>Profile</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {
+                        dispatch({
+                            type: "LOGOUT"
+                        })
+                    }}
+                >
+                    <Text className=' text-xl text-red-600 font-poppins font-bold tracking-widest'>Logout</Text>
+                </TouchableOpacity>
+            </View>
+
         </SafeAreaView>
     )
 }

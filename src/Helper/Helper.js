@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-export const baseURL = 'http://192.168.10.34:8000/account/'
+export const baseURL = 'https://apicollection.pythonanywhere.com/account/'
 let headers = {};
 const axiosIns = axios.create({
-    baseURL: 'http://192.168.10.34:8000/account/',
+    baseURL: 'https://apicollection.pythonanywhere.com/account/',
     headers,
 });
 axiosIns.interceptors.request.use(

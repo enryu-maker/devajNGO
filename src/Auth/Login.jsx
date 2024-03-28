@@ -11,7 +11,6 @@ export default function Login({
     navigation,
     route
 }) {
-    console.log(route?.params?.session)
     const [loading, setLoading] = React.useState(false)
     const [data, setData] = React.useState({
         username: "",
@@ -76,7 +75,6 @@ export default function Login({
                     <TouchableOpacity
                         disabled={loading}
                         onPress={() => {
-                            console.log(data)
                             dispatch(LoginAction(setLoading, data, navigation))
                         }}
                         className='bg-primary w-[88%] h-[50px] rounded-full justify-center items-center'

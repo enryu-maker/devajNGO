@@ -7,8 +7,6 @@ export const Init = () => {
   return async dispatch => {
     let access = await AsyncStorage.getItem('access');
     let role = await AsyncStorage.getItem('role');
-    console.log(access,role)
-
     if (access !== null) {
       dispatch({
         type: 'LOGIN',
@@ -24,10 +22,8 @@ export const Init = () => {
 export const LoginAction = (setLoading, data, navigation) => {
   return async dispatch => {
     setLoading(true);
-    try {
       await axios.post(baseURL + 'login/', data)
         .then((response) => {
-          console.log(response.data);
           AsyncStorage.setItem('access', response?.data?.access);
           AsyncStorage.setItem('role', response?.data?.role);
           dispatch({
@@ -41,7 +37,6 @@ export const LoginAction = (setLoading, data, navigation) => {
           navigation.navigate('Main')
         })
         .catch((error) => {
-          console.log(error)
           setLoading(false);
           Toast.show({
             type: 'error',
@@ -54,21 +49,15 @@ export const LoginAction = (setLoading, data, navigation) => {
         }
         )
     }
-    catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  }
+    
 }
 
 export const RegisterAction = (setLoading, data, navigation) => {
   return async dispatch => {
-    console.log(data)
     setLoading(true);
     try {
       await axios.post(baseURL + 'register/', data)
         .then((response) => {
-          console.log(response.data)
           Toast.show({
             type: 'success',
             text1: response?.data?.msg,
@@ -83,7 +72,6 @@ export const RegisterAction = (setLoading, data, navigation) => {
           }, 3500)
         })
         .catch((error) => {
-          console.log(error)
           setLoading(false);
           Toast.show({
             type: 'error',
@@ -97,7 +85,7 @@ export const RegisterAction = (setLoading, data, navigation) => {
         )
     }
     catch (error) {
-      console.log(error);
+      (error?.response?.data?.msg);
       setLoading(false);
     }
   }
@@ -110,13 +98,15 @@ export const AddStudentAction = (setLoading, data, navigation) => {
   }
   return async dispatch => {
     setLoading(true);
-    try {
-      await axiosIns.post(baseURL + 'add-student/', data)
+      await axiosIns.post(baseURL + 'add-student/', formdata,{
+        headers:{
+          'Content-Type': 'multipart/form-data',
+        }
+      })
         .then((response) => {
-          console.log(response.data)
           Toast.show({
             type: 'success',
-            text1: response.data.msg,
+            text1: "Students Added Sucessfully",
             visibilityTime: 2000,
             autoHide: true,
             topOffset: 30,
@@ -125,14 +115,13 @@ export const AddStudentAction = (setLoading, data, navigation) => {
           setTimeout(() => {
             setLoading(false);
             navigation.goBack();
-          }, 1500)
+          }, 2500)
         })
         .catch((error) => {
-          console.log(error)
           setLoading(false);
           Toast.show({
             type: 'error',
-            text1: error?.response?.data?.msg ,
+            text1: "Error Adding Students" ,
             visibilityTime: 2000,
             autoHide: true,
             topOffset: 30,
@@ -140,27 +129,19 @@ export const AddStudentAction = (setLoading, data, navigation) => {
           });
         }
         )
-    }
-    catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
   }
 }
 
 export const GetStudentAction = (setLoading) => {
   return async dispatch => {
     setLoading(true);
-    try {
       await axiosIns.get(baseURL + 'my-student/')
         .then((response) => {
           dispatch({
             type: 'GET_STUDENTS',
             payload: response.data,
           })
-          setTimeout(() => {
-            setLoading(false);
-          }, 1500)
+          setLoading(false)
         })
         .catch((error) => {
           setLoading(false);
@@ -175,9 +156,30 @@ export const GetStudentAction = (setLoading) => {
         }
         )
     }
-    catch (error) {
-      console.log(error);
-      setLoading(false);
+}
+
+export const GetVolunteersAction = (setLoading) => {
+  return async dispatch => {
+    setLoading(true);
+      await axiosIns.get(baseURL + 'my-volunteer/')
+        .then((response) => {
+          dispatch({
+            type: 'GET_VOLUNTEERS',
+            payload: response.data,
+          })
+          setLoading(false)
+        })
+        .catch((error) => {
+          setLoading(false);
+          Toast.show({
+            type: 'error',
+            text1: error?.response?.data?.msg  || "Error Occurred!",
+            visibilityTime: 2000,
+            autoHide: true,
+            topOffset: 30,
+            bottomOffset: 40,
+          });
+        }
+        )
     }
-  }
 }

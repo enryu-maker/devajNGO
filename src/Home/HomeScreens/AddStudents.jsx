@@ -21,9 +21,9 @@ export default function AddStudents({
     const [loading, setLoading] = useState(false);
 
     const [items, setItems] = useState([
-        { label: 'Male', value: 'Male' },
-        { label: 'Female', value: 'Female' },
-        { label: 'Other', value: 'Other' },
+        { label: 'Male', value: 'M' },
+        { label: 'Female', value: 'F' },
+        { label: 'Other', value: 'O' },
     ]);
 
     const dispatch = useDispatch()
@@ -57,8 +57,8 @@ export default function AddStudents({
         { label: 'No', value: false }
     ]
     const paymentItems = [
-        { label: `CASH`, value: "CASH" },
-        { label: 'ONLINE/UPI', value: "ONLINE" }
+        { label: `CASH`, value: "Cash" },
+        { label: 'ONLINE/UPI', value: "Online" }
     ]
 
     const [data, setData] = React.useState({
@@ -76,7 +76,7 @@ export default function AddStudents({
         date_of_birth: "",
         gender: items[0].value,
         is_disabled: disableItems[1].value,
-        disability_percentage: "",
+        disability_percentage: 0,
         payment_mode:paymentItems[0].value
     })
     return (
@@ -321,7 +321,7 @@ export default function AddStudents({
                         date={date}
                         onConfirm={(date) => {
                             setOpen(false)
-                            setData({ ...data, date_of_birth: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}` });
+                            setData({ ...data, date_of_birth: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}` });
                         }}
                         onCancel={() => {
                             setOpen(false)
@@ -345,10 +345,10 @@ export default function AddStudents({
                         initial={1}
                         buttonColor={"#f49d32"}
                         selectedButtonColor={"#f49d32"}
-                        onPress={(value) => { setData({ ...data, is_disable: value }) }}
+                        onPress={(value) => { setData({ ...data, is_disabled: value }) }}
                     />
                     {
-                        data?.is_disable ?
+                        data?.is_disabled ?
                             <>
                                 <Text
                                     className='self-start w-full font-poppins text-[14px] pb-2 text-gray-500'
@@ -413,9 +413,7 @@ export default function AddStudents({
             <TouchableOpacity
                 onPress={(e) => {
                     data["photo"] = image
-                    console.log(data)
                     dispatch(AddStudentAction(setLoading,data,navigation))
-                    // setLoading(true)
                 }}
                 className={`w-full ${Platform.OS=="ios"?"h-[90px]":"h-[70px]"} justify-center items-center bg-primary`}>
                 {

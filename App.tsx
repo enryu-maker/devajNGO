@@ -1,4 +1,4 @@
-import { View, Text, Platform } from 'react-native'
+import { View, Text, Platform, StatusBar } from 'react-native'
 import React from 'react'
 import { Provider } from 'react-redux'
 import { store } from './Store'
@@ -12,6 +12,7 @@ export default function App() {
   );
   return (
     <Provider store={store}>
+       <StatusBar backgroundColor={"#f49d32"} barStyle={Platform.OS === "ios" ? "dark-content" : "light-content"} />
         <Index />
     </Provider>
   )

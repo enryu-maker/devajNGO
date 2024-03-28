@@ -1,7 +1,8 @@
 const initialState = {
     access: null,
     role: null,
-    student: []
+    student: [],
+    volunteers: []
 }
 
 export default (state = initialState, action) => {
@@ -16,6 +17,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 student: action.payload,
+            }
+        case "GET_VOLUNTEERS":
+            return {
+                ...state,
+                volunteers: action.payload,
             }
         case "LOGOUT":
             return {
