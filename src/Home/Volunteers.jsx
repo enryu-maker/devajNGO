@@ -13,7 +13,6 @@ export default function Volunteers({
         dispatch(GetVolunteersAction(setLoading))
     }, [volunteers])
     const volunteers = useSelector(state => state.Reducers.volunteers)
-    console.log(volunteers)
     const [refreshing, setRefreshing] = React.useState(false);
 
     const onRefresh = React.useCallback(() => {
