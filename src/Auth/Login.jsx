@@ -51,7 +51,7 @@ export default function Login({
                             onChangeText={(text) => {
                                 setData({ ...data, username: text })
                             }}
-                            keyboardType="email-address"
+                            keyboardType={route?.params?.session ?"phone-pad":"email-address"}
                             className='border-[1px] h-[50px] font-poppins rounded-[8px] border-gray-400 w-full px-6 focus:border-primary'
                             placeholder={ route?.params?.session ?"1234567890" : "jhondoe"}
                         />
