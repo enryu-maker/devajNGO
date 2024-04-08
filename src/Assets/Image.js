@@ -6,4 +6,6 @@ export const Images  = {
     back : require('./Images/back.png'),
     graduation : require('./Images/graduation.png'),
     settings : require('./Images/settings.png'),
+    banner : require('./Images/banner.jpeg'),
+
 }
